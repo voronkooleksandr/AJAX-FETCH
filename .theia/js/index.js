@@ -58,7 +58,6 @@ const data = [
 
 data.forEach(createBox);
 
-// Create speech boxes
 function createBox(item) {
   const box = document.createElement('div');
 
@@ -75,7 +74,6 @@ function createBox(item) {
     setTextMessage(text);
     speakText();
 
-    // Add active effect
     box.classList.add('active');
     setTimeout(() => box.classList.remove('active'), 800);
   });
@@ -83,10 +81,8 @@ function createBox(item) {
   main.appendChild(box);
 }
 
-// Init speech synth
 const message = new SpeechSynthesisUtterance();
 
-// Store voices
 let voices = [];
 
 function getVoices() {
@@ -102,38 +98,29 @@ function getVoices() {
   });
 }
 
-// Set text
 function setTextMessage(text) {
   message.text = text;
 }
 
-// Speak text
 function speakText() {
   speechSynthesis.speak(message);
 }
 
-// Set voice
 function setVoice(e) {
   message.voice = voices.find(voice => voice.name === e.target.value);
 }
 
-// Voices changed
 speechSynthesis.addEventListener('voiceschanged', getVoices);
 
-// Toggle text box
 toggleBtn.addEventListener('click', () =>
   document.getElementById('text-box').classList.toggle('show')
 );
 
-// Close button
 closeBtn.addEventListener('click', () =>
   document.getElementById('text-box').classList.remove('show')
 );
 
-// Change voice
 voicesSelect.addEventListener('change', setVoice);
-
-// Read text button
 readBtn.addEventListener('click', () => {
   setTextMessage(textarea.value);
   speakText();
